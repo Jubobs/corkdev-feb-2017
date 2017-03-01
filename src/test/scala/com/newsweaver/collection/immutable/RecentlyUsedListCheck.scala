@@ -36,9 +36,9 @@ final class RecentlyUsedListCheck
 
 
     it("retains unique additions in stack order, up to its capacity") {
-      forAll(positiveInt, setOfStrings) { (capacity, strings) =>
-        val uniqueItems = strings.toList
-        val rul = buildRecentlyUsedList(capacity, uniqueItems)
+      forAll(positiveInt, setOfStrings) { (capacity, items) =>
+        val uniqueItems = items.toList
+        val rul = recentlyUsedListOf(capacity, uniqueItems)
 
         rul.toList == uniqueItems.reverse.take(capacity)
       }
@@ -47,8 +47,8 @@ final class RecentlyUsedListCheck
 
   describe("An nonempty Recently Used List") {
     it("is unchanged when head item is re-added") {
-      forAll(positiveInt, nonEmptySetOfStrings) { (capacity, strings) =>
-        val rul = buildRecentlyUsedList(capacity, strings)
+      forAll(positiveInt, nonEmptySetOfStrings) { (capacity, items) =>
+        val rul = recentlyUsedListOf(capacity, items)
 
         val head = rul(0)
         rul + head == rul
@@ -59,9 +59,9 @@ final class RecentlyUsedListCheck
   describe("Any Recently Used List") {
 
     it("of at least two items moves a non-head item to head when that item is re-added") {
-      forAll(positiveInt, setOfAtLeastTwoStrings) { (n, strings) =>
+      forAll(positiveInt, setOfAtLeastTwoStrings) { (n, items) =>
         val capacity = n + 1
-        val initialRul = buildRecentlyUsedList(capacity, strings)
+        val initialRul = recentlyUsedListOf(capacity, items)
         val size = initialRul.size
 
         forAll(choose(1, size - 1)) { i =>
@@ -74,8 +74,8 @@ final class RecentlyUsedListCheck
     }
 
     it("that gets cleared yields an empty list of the same capacity") {
-      forAll(positiveInt, nonEmptySetOfStrings) { (capacity, strings) =>
-        val rul = buildRecentlyUsedList(capacity, strings)
+      forAll(positiveInt, nonEmptySetOfStrings) { (capacity, items) =>
+        val rul = recentlyUsedListOf(capacity, items)
 
         val clearedRul = rul.clear
 
@@ -86,8 +86,8 @@ final class RecentlyUsedListCheck
 
 
     it("rejects the addition of a null item") {
-      forAll(positiveInt, setOfStrings) { (capacity, strings) =>
-        val rul = buildRecentlyUsedList(capacity, strings)
+      forAll(positiveInt, setOfStrings) { (capacity, items) =>
+        val rul = recentlyUsedListOf(capacity, items)
 
         throws(classOf[IllegalArgumentException]) { rul + null }
       }
@@ -95,8 +95,8 @@ final class RecentlyUsedListCheck
 
 
     it("allows indexing only within its bounds") {
-      forAll(positiveInt, setOfStrings, int) { (capacity, strings, i) =>
-        val rul = buildRecentlyUsedList(capacity, strings)
+      forAll(positiveInt, setOfStrings, int) { (capacity, items, i) =>
+        val rul = recentlyUsedListOf(capacity, items)
         val size = rul.size
 
         if (0 <= i && i < size) {
@@ -110,7 +110,7 @@ final class RecentlyUsedListCheck
     }
   }
 
-  private def buildRecentlyUsedList[A](capacity: Int, as: Iterable[A]) =
-    as.foldLeft(RecentlyUsedList[A](capacity))(_ + _)
+  private def recentlyUsedListOf[A](capacity: Int, items: Iterable[A]) =
+    items.foldLeft(RecentlyUsedList[A](capacity))(_ + _)
 
 }
