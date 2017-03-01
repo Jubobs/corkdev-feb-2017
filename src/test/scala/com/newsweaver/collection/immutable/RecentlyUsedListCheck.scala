@@ -34,7 +34,6 @@ final class RecentlyUsedListCheck
       }
     }
 
-
     it("retains unique additions in stack order, up to its capacity") {
       forAll(positiveInt, setOfStrings) { (capacity, items) =>
         val uniqueItems = items.toList
@@ -57,7 +56,6 @@ final class RecentlyUsedListCheck
   }
 
   describe("Any Recently Used List") {
-
     it("of at least two items moves a non-head item to head when that item is re-added") {
       forAll(positiveInt, setOfAtLeastTwoStrings) { (n, items) =>
         val capacity = n + 1
