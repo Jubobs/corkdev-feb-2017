@@ -2,7 +2,7 @@ package com.newsweaver.partitioning
 
 final class Partitioner private(val numOfPartitions: Int) {
 
-  def assign(n: Int): Int = math.abs(n) % numOfPartitions
+  def assign(n: Int): Int = (n & 0x0fffffff) % numOfPartitions
 
 }
 
