@@ -39,7 +39,7 @@ tests, with emphasis on readability.
 # Resources
 
 - Slides: TBA
-- Video: TBA
+- [Video](https://www.youtube.com/watch?v=h96c-coQWkE)
 - [Meetup](https://www.meetup.com/corkdev-io/events/237848006/)
 - [CorkDev](http://corkdev.io/)
 - [Kevlin Henney's talk at ITT 2016](https://www.youtube.com/watch?v=ZsHMHukIlJY#t=5m15s)
