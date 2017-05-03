@@ -1,5 +1,7 @@
 # Code samples from my CorkDev talk on property-based testing
 
+[![Build Status](https://travis-ci.org/Jubobs/corkdev-feb-2017.svg?branch=master)](https://travis-ci.org/Jubobs/corkdev-feb-2017)
+
 I gave a talk on property-based testing at CorkDev on the 28th of February,
 2017. This repo contains the code samples I used during that talk.
 
