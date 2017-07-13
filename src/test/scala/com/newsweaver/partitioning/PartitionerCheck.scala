@@ -14,7 +14,8 @@ object PartitionerCheck extends Properties("IntPartitioner") {
       }
 
   property("'assign' returns a nonnegative integer smaller than the number of partitions") =
-      forAll(intPartitioner, int) { (partitioner, n) =>
+      forAll(positiveInt, int) { (numOfPartitions, n) =>
+        val partitioner = Partitioner(numOfPartitions)
         val result = partitioner.assign(n)
         0 <= result && result < partitioner.numOfPartitions
       }
@@ -23,6 +24,6 @@ object PartitionerCheck extends Properties("IntPartitioner") {
 
   private val nonpositiveInt = choose(Int.MinValue, 0)
 
-  private val intPartitioner = posNum[Int] flatMap { Partitioner(_) }
+  private val positiveInt = posNum[Int]
 
 }
